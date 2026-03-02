@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot name="chess_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="prefix" default=""/>
+
+  <!-- 프리뷰/ROS 실행 둘 다 안정적으로 -->
+  <xacro:include filename="$(find-pkg-share dynamixel_control)/urdf/chess_robot.urdf.xacro"/>
+
+  <!-- (선택) pi 미정의 대비: chess_robot.urdf.xacro 안에 이미 정의해도 OK -->
+  <xacro:property name="pi" value="3.141592653589793"/>
+
+  <link name="world"/>
+  <joint name="${prefix}world_fixed" type="fixed">
+    <parent link="world"/>
+    <child link="${prefix}base_link1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <xacro:chess_robot prefix="${prefix}" />
+
+</robot>

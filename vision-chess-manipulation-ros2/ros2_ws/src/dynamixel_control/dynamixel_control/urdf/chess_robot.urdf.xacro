@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="chess_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="chess_robot" params="prefix">
+
+    <!-- link1 (base) -->
+    <link name="${prefix}base_link1">
+      <visual>
+        <geometry>
+          <cylinder length="0.01" radius="0.1"/>
+        </geometry>
+        <material name="blue">
+          <color rgba="0 0 1 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <!-- joint1 -->
+    <joint name="motor_joint" type="revolute">
+      <parent link="${prefix}base_link1"/>
+      <child link="${prefix}base_link2"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="1.0" velocity="1.0" lower="${-pi}" upper="${pi}"/>
+    </joint>
+
+    <!-- link2 (base) -->
+    <link name="${prefix}base_link2">
+      <visual>
+        <origin xyz="0 0 0.04" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.01" radius="0.1"/>
+        </geometry>
+        <material name="red">
+          <color rgba="1 0 0 1"/>
+        </material>
+      </visual>
+      <visual>
+        <origin xyz="0 0 0.2" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.06 0.06 0.4"/>
+        </geometry>
+        <material name="green">
+          <color rgba="0 1 0 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <!-- joint2 -->
+    <joint name="shoulder_revolute_joint" type="revolute">
+      <parent link="${prefix}base_link2"/>
+      <child link="${prefix}gear1"/>
+      <origin xyz="0 0 0.4" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="1.0" velocity="1.0" lower="${-pi}" upper="${pi}"/>
+    </joint>
+
+    <joint name="shoulder_slide_joint" type="prismatic">
+      <parent link="${prefix}base_link2"/>
+      <child link="${prefix}arm_link1"/>
+      <origin xyz="0 0 0.4" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <!-- TODO: prismatic은 m 단위라서 나중에 -0.05~0.05 같은 값으로 바꾸는 걸 추천 -->
+      <limit effort="1.0" velocity="1.0" lower="${-pi/2}" upper="${pi/2}"/>
+      <mimic joint="shoulder_revolute_joint" multiplier="0.048" offset="0"/>
+    </joint>
+
+    <!-- gear1 48mm-->
+    <link name="${prefix}gear1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.02" radius="0.048"/>
+        </geometry>
+        <material name="yellow">
+          <color rgba="1 1 0 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <!-- link3 (arm_link1)138mm -->
+    <link name="${prefix}arm_link1">
+      <visual>
+        <origin xyz="0.069 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.138 0.05 0.05"/>
+        </geometry>
+        <material name="cyan">
+          <color rgba="0 1 1 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <!-- joint3 -->
+    <joint name="arm_joint" type="revolute">
+      <parent link="${prefix}arm_link1"/>
+      <child link="${prefix}arm_link2"/>
+      <origin xyz="0.138 0 0" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="1.0" velocity="1.0" lower="${-pi}" upper="${pi}"/>
+    </joint>
+
+    <!-- link4 (arm_link2) 140mm-->
+    <link name="${prefix}arm_link2">
+      <visual>
+        <origin xyz="0.07 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.14 0.05 0.05"/>
+        </geometry>
+        <material name="magenta">
+          <color rgba="1 0 1 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <!-- joint4 -->
+    <joint name="hand_revolute_joint" type="revolute">
+      <parent link="${prefix}arm_link2"/>
+      <child link="${prefix}gear2"/>
+      <origin xyz="0.14 0 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="1.0" velocity="1.0" lower="${-pi}" upper="${pi}"/>
+    </joint>
+
+    <joint name="hand_slide_joint" type="prismatic">
+      <parent link="${prefix}arm_link2"/>
+      <child link="${prefix}hand_link1"/>
+      <origin xyz="0.14 0 0" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <!-- TODO: prismatic m 단위 -->
+      <limit effort="1.0" velocity="1.0" lower="${-pi/2}" upper="${pi/2}"/>
+      <mimic joint="hand_revolute_joint" multiplier="0.02" offset="0"/>
+    </joint>
+
+    <!-- gear2-->
+    <link name="${prefix}gear2">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.02" radius="0.02"/>
+        </geometry>
+        <material name="yellow">
+          <color rgba="1 1 0 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <!-- link5 (hand_link1) -->
+    <link name="${prefix}hand_link1">
+      <visual>
+        <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.02 0.1"/>
+        </geometry>
+        <material name="white">
+          <color rgba="1 1 1 1"/>
+        </material>
+      </visual>
+    </link>
+
+  </xacro:macro>
+</robot>
