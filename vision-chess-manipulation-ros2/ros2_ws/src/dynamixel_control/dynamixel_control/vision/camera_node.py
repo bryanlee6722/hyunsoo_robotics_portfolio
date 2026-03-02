@@ -6,7 +6,6 @@ import cv2
 
 
 class CameraNode(Node):
-    """Publishes camera feed as ROS2 Image messages."""
     
     def __init__(self):
         super().__init__('camera_node')
@@ -52,7 +51,6 @@ class CameraNode(Node):
         self.frame_count = 0
     
     def _init_camera(self):
-        """Initialize camera capture."""
         try:
             sources = self._build_camera_sources()
             for source in sources:
@@ -90,7 +88,6 @@ class CameraNode(Node):
             self.is_connected = False
 
     def _build_camera_sources(self):
-        """Create ordered camera source list from parameters."""
         sources = [self.camera_device]
         for idx in self.fallback_camera_indices:
             if idx not in sources:
@@ -98,7 +95,6 @@ class CameraNode(Node):
         return sources
 
     def _open_capture(self, source):
-        """Open camera source with platform backend if requested."""
         try:
             if isinstance(source, int) and self.use_v4l2:
                 return cv2.VideoCapture(source, cv2.CAP_V4L2)
@@ -107,7 +103,6 @@ class CameraNode(Node):
             return None
     
     def publish_frame(self):
-        """Capture and publish a frame from camera."""
         if not self.is_connected or self.cap is None:
             return
         
@@ -139,12 +134,7 @@ class CameraNode(Node):
             self.get_logger().error(f'Error publishing frame: {e}')
     
     def get_camera_info(self) -> dict:
-        """
-        Get current camera information.
-        
-        Returns:
-            Dictionary with camera properties
-        """
+
         if not self.is_connected or self.cap is None:
             return {}
         
@@ -157,16 +147,7 @@ class CameraNode(Node):
         }
     
     def set_camera_property(self, property_name: str, value: float) -> bool:
-        """
-        Set a camera property.
-        
-        Args:
-            property_name: Name of property ('brightness', 'contrast', 'saturation', etc.)
-            value: Value to set
-            
-        Returns:
-            True if successful, False otherwise
-        """
+
         if not self.is_connected or self.cap is None:
             return False
         
