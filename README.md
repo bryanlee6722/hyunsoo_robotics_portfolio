@@ -19,6 +19,13 @@
    
 ## Videos
 
-1. Vision Based Chess Manipulation
+1. Vision Based Chess Manipulation:
+
+   
 
 2. Teleoperation
+
+
+
+https://github.com/user-attachments/assets/0006c42c-5d85-43ac-bec1-fccc3eb352a0
+
