@@ -5,7 +5,7 @@
 
 1. Vision Based Chess Manipulation Using SCARA Hardware:
 
-   카메라 정보를 받아들여 사용자의 체스 동작을 인식하고 자동으로 다음 수를 계산한 후, 이를 하드웨어가 구현하는 파이프라인입니다.
+   카메라 정보를 받아들여 사용자의 체스 동작을 인식하고 자동으로 다음 수를 계산한 후, 이를 실제 로봇이 구현하는 파이프라인입니다.
    전체 파이프라인 구현, 세부 코드 구현에 기여하였습니다.
 
    세부사항의 경우 `vision-chess-manipulation-ros2/docs/pipeline.md`에 정리하였습니다. 동일 내용 아래에도 첨부하였습니다.
