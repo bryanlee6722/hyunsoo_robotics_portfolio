@@ -1,7 +1,7 @@
 # hyunsoo_robotics_portfolio
 
 ## Main Contents
-이 repository는 Kane's Dynamics Based QP-WBC, Chess robot Maipulation, Teleoperation 관련 프로젝트를 정리한 개인 portfolio입니다.
+해당 repository는 Kane's Dynamics Based QP-WBC, Chess Robot Maipulation, Teleoperation 관련 프로젝트를 정리한 개인 portfolio입니다.
 각 프로젝트에는 전체 control 및 software pipeline과 주요 구현 내용을 요약하였습니다.
 
 해당 레포지토리는 다음의 세 프로젝트의 내용을 담고 있습니다: 
@@ -38,7 +38,7 @@
 2. 현재 stance contact를 기준으로 contact Jacobian을 계산하고, null-space basis를 구성합니다.
 3. Generalized velocity를 표현하여 active contact constraint를 만족하는 independent generalized speed를 정의합니다.
 4. Full rigid-body dynamics를 contact-consistent subspace로 projection하여 reduced dynamics를 구성합니다.
-5. Reduced generalized acceleration와 joint torque를 decision variable로 하는 QP-WBC를 구성합니다.
+5. Reduced generalized acceleration과 joint torque를 decision variable로 하는 QP-WBC를 구성합니다.
 6. QP에서 reduced dynamics와 actuator limit을 hard constraint로 적용하고, base tracking, swing-foot tracking의 task를 최적화합니다.
 7. Contact force는 independent decision variable로 사용하지 않고 dynamics로부터 reconstruction하여 friction 및 unilateral contact feasibility를 확인합니다.
 8. 최적화된 joint torque를 MuJoCo robot에 입력하고, conventional WBC와 동일한 locomotion condition에서 tracking performance와 computation time을 비교합니다.
@@ -90,7 +90,7 @@ https://github.com/user-attachments/assets/836d1f97-f6c7-40a2-acc7-006d7f06512f
 1. `bridge_node`가 `GroupSyncRead`를 통해 리더 암의 다이나믹셀 14개 현재 위치를 읽습니다.
 2. 엔코더 값을 rad으로 변환합니다 (`0..4096` -> `0..2pi`).
 3. 각 관절 값에 `LowPassFilter`(`plugins/filters.py`)를 적용하여 신호를 완화합니다.
-4. 각 팔의 앞 4개 관절 값을 변환한 뒤 `Calibration.calibrate(...)`(`plugins/calibration.py`)에 전달하여 리더 자세를 follower_arm의 Scale에 맞게 보정합니다.
+4. 각 팔의 앞 4개 관절 값을 변환한 뒤 `Calibration.calibrate(...)`(`plugins/calibration.py`)에 전달하여 리더 자세를 follower_arm의 joint configuration에 맞게 보정합니다.
 5. 보정된 관절 값을 `[0, 2pi)` 범위로 정리한 후 `/leader/joint_states`로 `sensor_msgs/JointState`를 publish합니다.
 
 ## Video
