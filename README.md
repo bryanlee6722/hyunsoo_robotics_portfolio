@@ -1,7 +1,7 @@
 # hyunsoo_robotics_portfolio
 
 ## Main Contents
-해당 repository는 Kane's Dynamics Based QP-WBC, Chess Robot Maipulation, Teleoperation 관련 프로젝트를 정리한 개인 portfolio입니다.
+해당 repository는 Kane's Dynamics Based QP-WBC, Chess Robot Manipulation, Teleoperation 관련 프로젝트를 정리한 개인 portfolio입니다.
 각 프로젝트에는 전체 control 및 software pipeline과 주요 구현 내용을 요약하였습니다.
 
 해당 레포지토리는 다음의 세 프로젝트의 내용을 담고 있습니다: 
